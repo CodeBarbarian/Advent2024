@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="53e8a80c-1445-4ef7-b9f9-49a4128258b8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Advent2024.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Advent_Of_Code_2024/day2/day2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Advent_Of_Code_2024/day2/day2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Advent_Of_Code_2024/day3/day3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Advent_Of_Code_2024/day3/input_day3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +58,7 @@
       <option name="presentableId" value="Default" />
       <updated>1733127230823</updated>
       <workItem from="1733127231595" duration="4501000" />
-      <workItem from="1733214764862" duration="3321000" />
+      <workItem from="1733214764862" duration="5143000" />
     </task>
     <servers />
   </component>
