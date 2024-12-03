@@ -32,17 +32,35 @@ So, in this example, 2 reports are safe.
 
 Analyze the unusual data from the engineers. How many reports are safe?
 
+Your puzzle answer was 472.
+
+--- Part Two ---
+The engineers are surprised by the low number of safe reports until they realize they forgot to tell you about the Problem Dampener.
+
+The Problem Dampener is a reactor-mounted module that lets the reactor safety systems tolerate a single bad level in what would otherwise be a safe report. It's like the bad level never happened!
+
+Now, the same rules apply as before, except if removing a single level from an unsafe report would make it safe, the report instead counts as safe.
+
+More of the above example's reports are now safe:
+
+7 6 4 2 1: Safe without removing any level.
+1 2 7 8 9: Unsafe regardless of which level is removed.
+9 7 6 2 1: Unsafe regardless of which level is removed.
+1 3 2 4 5: Safe by removing the second level, 3.
+8 6 4 4 1: Safe by removing the third level, 4.
+1 3 6 7 9: Safe without removing any level.
+Thanks to the Problem Dampener, 4 reports are actually safe!
+
+Update your analysis by handling situations where the Problem Dampener can remove a single level from unsafe reports. How many reports are now safe?
+
+Your puzzle answer was 520.
+
+Both parts of this puzzle are complete! They provide two gold stars: **
+
 """
 from typing import List
 
 class Day2:
-    """
-    Day 2 plan of attack:
-        1. Check if levels are all increasing or all decreasing.
-        2. Check if all adjacent differences are between 1 and 3.
-        3. Ensure no repetition of adjacent levels.
-    """
-
     def __init__(self, input_file: str):
         self.input_file = input_file
 
@@ -58,19 +76,15 @@ class Day2:
         except ValueError:
             raise Exception(f"File {self.input_file} contains invalid data.")
 
-    def is_valid_report(self, report: List[int]) -> bool:
+
+    def is_safe_report(self, report: List[int]) -> bool:
         """
         Checks if a report satisfies the safety conditions:
         1. All levels are either increasing or decreasing.
-        2. All adjacent differences are between 1 and 3.
-        3. No adjacent levels are equal.
+        2. All adjacent levels are either increasing or decreasing.
         """
         # Compute differences between adjacent levels
         differences = [report[i + 1] - report[i] for i in range(len(report) - 1)]
-
-        # Check for no change (adjacent levels are the same)
-        if any(diff == 0 for diff in differences):
-            return False
 
         # Check if all differences are within the allowed range
         if not all(1 <= abs(diff) <= 3 for diff in differences):
@@ -82,21 +96,49 @@ class Day2:
 
         return all_increasing or all_decreasing
 
-    def count_safe_reports(self) -> int:
+    def problem_dampener(self, report):
+        """
+        Check if the report satisfies the safety conditions,
+        allowing the removal of a single level if needed
+        """
+        # If the report is already safe
+        if self.is_safe_report(report):
+            return True
+
+        # Check by removing a level... The bruteforce way!
+        for i in range(len(report)):
+            if self.is_safe_report(report[:i] + report[i + 1:]):
+                return True
+
+        return False
+
+    def problem1(self) -> int:
         """
         Counts the number of safe reports in the input data.
         """
         reports = self.read_input()
-        safe_count = sum(1 for report in reports if self.is_valid_report(report))
+        safe_count = sum(1 for report in reports if self.is_safe_report(report))
+
+        return safe_count
+
+    def problem2(self) -> int:
+        """
+        Counts the number of safe reports, considering the ability to remove one level.
+        """
+        reports = self.read_input()
+        safe_count = sum(1 for report in reports if self.problem_dampener(report))
+
         return safe_count
 
     def run(self):
         """
-        Solves the problem by counting safe reports and printing the result.
+        Runs both problems sequentially.
         """
-        print("Counting safe reports...")
-        safe_count = self.count_safe_reports()
-        print(f"Number of safe reports: {safe_count}")
+        print("Solving Problem 1...")
+        print(f"Number of safe reports: {self.problem1()}")
+
+        print("\nSolving Problem 2...")
+        print(f"Number of safe reports: {self.problem2()}")
 
 if __name__ == '__main__':
     app = Day2("input_day2.txt")
